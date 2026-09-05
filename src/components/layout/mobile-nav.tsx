@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useCallback, useEffect, useRef } from "react";
 
 import { Logo } from "@/components/brand/logo";
@@ -101,13 +100,13 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
                 open ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0",
               )}
             >
-              <Link
+              <a
                 href={item.href}
                 onClick={onClose}
                 className="font-display block py-2 text-[2.5rem] leading-tight"
               >
                 {item.label}
-              </Link>
+              </a>
             </li>
           ))}
         </ul>

@@ -32,22 +32,19 @@ npm run lint       # eslint
 ```
 src/
 ├─ app/
-│  ├─ (site)/              rotas institucionais (header + footer)
-│  │  ├─ layout.tsx
-│  │  ├─ page.tsx          home
-│  │  ├─ servicos/
-│  │  ├─ protocolos/
-│  │  ├─ sobre/
-│  │  └─ contato/
+│  ├─ (site)/
+│  │  ├─ layout.tsx        header + footer + scroll reveal
+│  │  └─ page.tsx          a página (compõe todas as seções, nesta ordem)
 │  ├─ api/health/          convenção das rotas de API (fase 2)
 │  ├─ layout.tsx           fontes, metadata, analytics
 │  ├─ opengraph-image.tsx  cartão de compartilhamento
 │  ├─ sitemap.ts / robots.ts
-│  └─ globals.css          tokens da marca + entrada do hero
+│  └─ globals.css          tokens da marca + entrada do hero + scroll reveal
 ├─ components/
 │  ├─ brand/               Logo, LogoMark
 │  ├─ layout/              Header, MobileNav, Footer
-│  ├─ sections/            Hero, ServiceMenu, StudioMap
+│  ├─ sections/            Hero, ServiceMenu, Packages, Protocols, About,
+│  │                       Testimonials, Contact, StudioMap, Policy
 │  └─ ui/                  Button, Container, Section, ScrollReveal
 ├─ features/
 │  └─ booking/             fatia isolada do agendamento
@@ -59,6 +56,27 @@ src/
 │  └─ utils/               cn, format (BRL), whatsapp
 └─ config/                 site.ts (NAP, contatos), nav.ts
 ```
+
+## Página única
+
+O site é uma página só. O menu do header apenas ancora nas seções — ninguém
+troca de rota — porque parte das clientes rola do topo ao rodapé sem clicar em
+nada. Ordem das seções, que é também a ordem de `config/nav.ts`:
+
+```
+Hero → Serviços → Pacotes → Protocolos → Sobre → Depoimentos
+     → Contato → Onde fica (mapa) → Política → Rodapé
+```
+
+Para acrescentar uma seção: criar o componente em `components/sections/`,
+dar a ele um `<Section id="...">` e encaixar em `app/(site)/page.tsx`. Se ela
+deve aparecer no menu, entrar em `config/nav.ts` — o destaque do item segue
+sozinho a seção que está na tela (scroll spy no `Header`).
+
+As rotas antigas (`/servicos`, `/protocolos`, `/sobre`, `/contato`) chegaram a
+ir ao ar e hoje redirecionam para as âncoras. São 307 (temporário) de
+propósito: um 308 fica cacheado no navegador e trava a decisão enquanto a
+estrutura ainda está em ajuste com a cliente.
 
 ## Movimento
 

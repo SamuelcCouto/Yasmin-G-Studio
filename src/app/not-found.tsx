@@ -15,7 +15,7 @@ export default function NotFound() {
           <Link href="/" className="underline underline-offset-[6px]">
             Ir para a home
           </Link>
-          <Link href="/servicos" className="underline underline-offset-[6px]">
+          <Link href="/#servicos" className="underline underline-offset-[6px]">
             Ver serviços
           </Link>
         </div>

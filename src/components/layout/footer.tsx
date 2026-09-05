@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 import { Logo } from "@/components/brand/logo";
 import { Container } from "@/components/ui/container";
 import { footerNav } from "@/config/nav";
@@ -71,12 +69,12 @@ export function Footer() {
               <ul className="space-y-1.5 text-[0.9rem]">
                 {footerNav.map((item) => (
                   <li key={item.href}>
-                    <Link
+                    <a
                       href={item.href}
                       className="text-creme-suave hover:text-creme transition-colors"
                     >
                       {item.label}
-                    </Link>
+                    </a>
                   </li>
                 ))}
                 <li>

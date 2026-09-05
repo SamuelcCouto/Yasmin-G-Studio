@@ -57,7 +57,7 @@ export function Hero() {
             style={{ animationDelay: "330ms" }}
           >
             <BookingCta />
-            <ButtonLink href="/servicos" variant="texto">
+            <ButtonLink href="#servicos" variant="texto">
               Ver serviços e valores
             </ButtonLink>
           </div>
