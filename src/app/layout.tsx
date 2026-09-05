@@ -62,8 +62,25 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pt-BR" className={`${bodoni.variable} ${archivo.variable}`}>
+    // `suppressHydrationWarning`: o script abaixo acrescenta a classe `js` ao
+    // <html> antes da hidratação, então o className do cliente diverge do
+    // servidor de propósito.
+    <html
+      lang="pt-BR"
+      className={`${bodoni.variable} ${archivo.variable}`}
+      suppressHydrationWarning
+    >
       <body className="antialiased">
+        {/*
+          Marca que há JavaScript antes da primeira pintura. O estado inicial
+          escondido do scroll reveal depende desta classe: sem ela — JS
+          desligado ou quebrado — o conteúdo simplesmente aparece.
+        */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `document.documentElement.classList.add("js")`,
+          }}
+        />
         {children}
         <Analytics />
         <SpeedInsights />

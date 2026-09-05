@@ -10,7 +10,7 @@ Fase atual: institucional e visual. Fase seguinte: agendamento próprio via API.
 | Framework    | Next.js 16 (App Router, Turbopack)       | Deploy nativo na Vercel; RSC deixa o site quase sem JS no cliente   |
 | UI           | React 19 + TypeScript strict             | Server Components por padrão, `"use client"` só nas folhas          |
 | Estilo       | Tailwind CSS v4 (config em CSS)          | Tokens da marca em `@theme`, sem `tailwind.config.js`               |
-| Movimento    | CSS (keyframes + transitions)            | Uma sequência de entrada e uma transição de menu não pagam um runtime |
+| Movimento    | CSS + IntersectionObserver               | Entrada do hero e scroll reveal sem runtime de animação no bundle    |
 | Fontes       | `next/font` (Bodoni Moda + Archivo)      | Self-hosted, sem CDN externa e sem layout shift                     |
 | Imagens      | `next/image`                             | AVIF/WebP e resize pela Image Optimization da Vercel                |
 | Validação    | Zod                                      | Mesmo schema no formulário e na futura rota de API                  |
@@ -47,8 +47,8 @@ src/
 ├─ components/
 │  ├─ brand/               Logo, LogoMark
 │  ├─ layout/              Header, MobileNav, Footer
-│  ├─ sections/            Hero, ServiceMenu
-│  └─ ui/                  Button, Container, Section
+│  ├─ sections/            Hero, ServiceMenu, StudioMap
+│  └─ ui/                  Button, Container, Section, ScrollReveal
 ├─ features/
 │  └─ booking/             fatia isolada do agendamento
 │     ├─ schema.ts         contrato Zod (client + server)
@@ -59,6 +59,24 @@ src/
 │  └─ utils/               cn, format (BRL), whatsapp
 └─ config/                 site.ts (NAP, contatos), nav.ts
 ```
+
+## Movimento
+
+Duas camadas, ambas sem biblioteca de animação:
+
+1. **Entrada do hero** — keyframes CSS (`.entrada`, `.entrada-titulo`). Roda sem
+   JavaScript e não depende de `requestAnimationFrame`.
+2. **Scroll reveal** — `components/ui/scroll-reveal.tsx` monta uma vez no layout
+   e observa todo `[data-reveal]` da página com `IntersectionObserver`. As
+   seções seguem sendo Server Components: só marcam o atributo.
+
+Para revelar um bloco novo, basta `data-reveal="up" | "left" | "right"`. Um
+`style={{ transitionDelay }}` escalona listas.
+
+O estado escondido vive sob `html.js`, classe adicionada por um script inline
+antes da primeira pintura: **sem JavaScript, nada some.** E se o observer não
+entregar, uma verificação em 1,2 s detecta que há elemento visível ainda
+escondido e revela tudo — conteúdo nunca fica preso numa animação.
 
 ## As portas abertas para o backend
 

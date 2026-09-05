@@ -13,7 +13,7 @@ export function Footer() {
     <footer className="on-dark bg-espresso text-creme">
       <Container className="py-20 md:py-24">
         <div className="grid gap-14 lg:grid-cols-[1.15fr_1fr] lg:gap-20">
-          <div>
+          <div data-reveal="up">
             <h2 className="text-display text-creme max-w-[12ch]">
               Agende seu horário.
             </h2>
@@ -32,7 +32,7 @@ export function Footer() {
             </div>
           </div>
 
-          <div className="grid gap-10 sm:grid-cols-3">
+          <div className="grid gap-10 sm:grid-cols-3" data-reveal="up">
             <FooterColumn title="Studio">
               <address className="text-creme-suave space-y-1 text-[0.9rem] not-italic">
                 <p>{site.address.street}</p>

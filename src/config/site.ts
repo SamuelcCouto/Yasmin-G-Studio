@@ -46,11 +46,24 @@ export const site = {
     district: "Setor Pedro Ludovico",
     city: "Goiânia",
     state: "GO",
+    postalCode: "74820-090",
     country: "BR",
     note: "Atendimento somente com horário agendado.",
     mapsUrl:
       "https://www.google.com/maps/search/?api=1&query=Av.+2%C2%AA+Radial+596+Setor+Pedro+Ludovico+Goi%C3%A2nia",
-    geo: { latitude: -16.7154, longitude: -49.2647 },
+    /**
+     * Busca pela ficha do studio no Google, e não por coordenada fixa: o pino
+     * cai no ponto que a própria Yasmin cadastrou e o card mostra nome e
+     * avaliações. Buscar só pelo endereço não fixava marcador nenhum.
+     *
+     * Para trocar pelo embed oficial: no Google Maps, ficha do studio →
+     * Compartilhar → Incorporar um mapa → copiar o `src` do iframe para cá.
+     */
+    mapsEmbedUrl:
+      "https://maps.google.com/maps?q=Yasmin+Guimar%C3%A3es+Studio%2C+Goi%C3%A2nia&z=17&output=embed",
+    // Sem `geo` de propósito: a coordenada que estava aqui era um chute e caía
+    // a ~1,8 km do studio. Endereço completo com CEP resolve a busca local;
+    // coordenada só volta quando vier da ficha do Google.
   },
 
   hours: [

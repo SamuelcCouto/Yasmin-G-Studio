@@ -1,5 +1,6 @@
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
+import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { LocalBusinessJsonLd } from "@/lib/seo/json-ld";
 
 /**
@@ -19,6 +20,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
       <Header />
       <main id="conteudo">{children}</main>
       <Footer />
+      <ScrollReveal />
       <LocalBusinessJsonLd />
     </>
   );

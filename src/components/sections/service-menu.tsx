@@ -42,7 +42,7 @@ export function ServiceMenu({
     <Section id={id} tone="linho" space="generous" aria-labelledby={`${id}-titulo`}>
       <Container>
         <div className="grid gap-10 lg:grid-cols-[minmax(0,22rem)_1fr] lg:gap-20">
-          <div className="lg:sticky lg:top-32 lg:self-start">
+          <div className="lg:sticky lg:top-32 lg:self-start" data-reveal="up">
             <Title
               id={`${id}-titulo`}
               className={
@@ -63,7 +63,7 @@ export function ServiceMenu({
 
           <div className="space-y-16">
             {groups.map((group) => (
-              <div key={group.category.slug}>
+              <div key={group.category.slug} data-reveal="up">
                 <CategoryTitle className="font-display text-title text-tinta">
                   {group.category.name}
                 </CategoryTitle>

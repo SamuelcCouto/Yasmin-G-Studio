@@ -19,7 +19,7 @@ export default async function ProtocolosPage() {
   return (
     <Section tone="linho" space="generous" aria-labelledby="protocolos-titulo">
       <Container>
-        <div className="max-w-[46rem] pt-24">
+        <div className="max-w-[46rem] pt-24" data-reveal="up">
           <h1 id="protocolos-titulo" className="text-display-xl text-tinta">
             Protocolos personalizados.
           </h1>
@@ -30,8 +30,13 @@ export default async function ProtocolosPage() {
         </div>
 
         <ul className="mt-20 grid gap-x-16 gap-y-14 lg:grid-cols-2">
-          {protocols.map((protocol) => (
-            <li key={protocol.id} className="border-pedra/45 border-t pt-8">
+          {protocols.map((protocol, index) => (
+            <li
+              key={protocol.id}
+              data-reveal="up"
+              style={{ transitionDelay: `${(index % 2) * 90}ms` }}
+              className="border-pedra/45 border-t pt-8"
+            >
               <div className="flex items-baseline justify-between gap-6">
                 <h2 className="font-display text-title text-tinta">{protocol.name}</h2>
                 <p className="text-tinta text-[1.05rem] tabular-nums">
