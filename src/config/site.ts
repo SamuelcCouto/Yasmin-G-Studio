@@ -1,16 +1,20 @@
+import { env } from "@/lib/utils/env";
+
 /**
  * `NEXT_PUBLIC_SITE_URL` só é definida quando o domínio final está no ar.
  * Enquanto o site vive numa URL de preview da Vercel, ele não deve ser
  * indexado: evita o domínio provisório ranquear e virar conteúdo duplicado.
  */
-export const isPublicDomain = Boolean(process.env.NEXT_PUBLIC_SITE_URL);
+export const isPublicDomain = Boolean(env(process.env.NEXT_PUBLIC_SITE_URL));
 
 function resolveSiteUrl(): string {
-  if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL;
+  const configured = env(process.env.NEXT_PUBLIC_SITE_URL);
+  if (configured) return configured;
+
   // Preenchida pela Vercel no build; cobre o preview sem domínio próprio.
-  if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
-    return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
-  }
+  const vercel = env(process.env.VERCEL_PROJECT_PRODUCTION_URL);
+  if (vercel) return `https://${vercel}`;
+
   return "http://localhost:3000";
 }
 
@@ -31,7 +35,7 @@ export const site = {
   contact: {
     phone: "(62) 99309-5816",
     phoneE164: "+5562993095816",
-    whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "5562993095816",
+    whatsapp: env(process.env.NEXT_PUBLIC_WHATSAPP_NUMBER) ?? "5562993095816",
     instagram: "yasminf.guimaraes",
     instagramUrl: "https://instagram.com/yasminf.guimaraes",
     email: "",
