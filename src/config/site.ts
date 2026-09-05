@@ -1,4 +1,20 @@
 /**
+ * `NEXT_PUBLIC_SITE_URL` só é definida quando o domínio final está no ar.
+ * Enquanto o site vive numa URL de preview da Vercel, ele não deve ser
+ * indexado: evita o domínio provisório ranquear e virar conteúdo duplicado.
+ */
+export const isPublicDomain = Boolean(process.env.NEXT_PUBLIC_SITE_URL);
+
+function resolveSiteUrl(): string {
+  if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL;
+  // Preenchida pela Vercel no build; cobre o preview sem domínio próprio.
+  if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
+    return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
+  }
+  return "http://localhost:3000";
+}
+
+/**
  * Fonte única de verdade para dados institucionais (NAP, contatos, redes).
  * Qualquer componente que precise de telefone/endereço lê daqui — nunca hardcode.
  */
@@ -9,7 +25,7 @@ export const site = {
   role: "Massoterapia e estética corporal",
   description:
     "Massoterapia e estética corporal em Goiânia. Massagem relaxante, drenagem linfática, modeladora e protocolos personalizados, com atendimento individual e hora marcada.",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://studioyasminguimaraes.com.br",
+  url: resolveSiteUrl(),
   locale: "pt-BR",
 
   contact: {
