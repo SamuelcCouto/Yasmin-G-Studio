@@ -59,8 +59,9 @@
   :root {
     color-scheme: light;
     scroll-behavior: smooth;
-    /* Compensa o header fixo ao pular por âncora */
-    scroll-padding-top: 6rem;
+    /* Altura exata do header fixo: o respiro depois do salto já vem do
+       padding da própria seção. */
+    scroll-padding-top: 5rem;
   }
 
   body {

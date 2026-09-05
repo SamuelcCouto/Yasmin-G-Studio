@@ -1,7 +1,5 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { Logo } from "@/components/brand/logo";
@@ -11,10 +9,12 @@ import { mainNav } from "@/config/nav";
 import { BookingCta } from "@/features/booking/components/booking-cta";
 import { cn } from "@/lib/utils/cn";
 
+const sectionIds = mainNav.map((item) => item.href.slice(1));
+
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const pathname = usePathname();
+  const [activeSection, setActiveSection] = useState<string | null>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -23,8 +23,34 @@ export function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // O menu mobile se fecha no clique do próprio link (ver MobileNav),
-  // então não há efeito observando a rota.
+  /**
+   * Destaque do menu conforme a seção que está na tela. O `rootMargin` recorta
+   * uma faixa no terço superior: a seção só assume o destaque quando de fato
+   * ocupa a leitura, e não assim que encosta na borda de baixo.
+   */
+  useEffect(() => {
+    if (!("IntersectionObserver" in window)) return;
+
+    const sections = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null);
+    if (sections.length === 0) return;
+
+    const naTela = new Set<string>();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) naTela.add(entry.target.id);
+          else naTela.delete(entry.target.id);
+        });
+        setActiveSection(sectionIds.find((id) => naTela.has(id)) ?? null);
+      },
+      { rootMargin: "-30% 0px -55% 0px", threshold: 0 },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <>
@@ -40,12 +66,12 @@ export function Header() {
           <nav aria-label="Principal" className="hidden lg:block">
             <ul className="flex items-center gap-9">
               {mainNav.map((item) => {
-                const active = pathname === item.href;
+                const active = activeSection === item.href.slice(1);
                 return (
                   <li key={item.href}>
-                    <Link
+                    <a
                       href={item.href}
-                      aria-current={active ? "page" : undefined}
+                      aria-current={active ? "true" : undefined}
                       className={cn(
                         "font-sans text-[0.84rem] tracking-[0.04em] transition-colors",
                         "decoration-ouro decoration-1 underline-offset-[10px]",
@@ -53,7 +79,7 @@ export function Header() {
                       )}
                     >
                       {item.label}
-                    </Link>
+                    </a>
                   </li>
                 );
               })}

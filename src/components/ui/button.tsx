@@ -80,9 +80,11 @@ export function ButtonLink({
   ...rest
 }: ButtonLinkProps) {
   const classes = buttonStyles({ variant, size, className });
-  const isExternal = /^(https?:|mailto:|tel:)/.test(href);
+  // Âncoras e links externos saem como <a>: next/link só entra quando há
+  // rota de verdade para pré-carregar.
+  const isPlainAnchor = /^(https?:|mailto:|tel:|#)/.test(href);
 
-  if (isExternal) {
+  if (isPlainAnchor) {
     return (
       <a
         href={href}
