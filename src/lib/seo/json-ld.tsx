@@ -20,12 +20,8 @@ export function LocalBusinessJsonLd() {
       streetAddress: site.address.street,
       addressLocality: site.address.city,
       addressRegion: site.address.state,
+      postalCode: site.address.postalCode,
       addressCountry: site.address.country,
-    },
-    geo: {
-      "@type": "GeoCoordinates",
-      latitude: site.address.geo.latitude,
-      longitude: site.address.geo.longitude,
     },
     sameAs: [site.contact.instagramUrl],
     openingHoursSpecification: [

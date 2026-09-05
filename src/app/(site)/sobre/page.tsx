@@ -21,7 +21,7 @@ export default async function SobrePage() {
       <Section tone="linho" space="generous" aria-labelledby="sobre-titulo">
         <Container>
           <div className="grid items-start gap-14 pt-24 lg:grid-cols-[1fr_0.8fr] lg:gap-24">
-            <div>
+            <div data-reveal="left">
               <h1 id="sobre-titulo" className="text-display-xl text-tinta">
                 Cuidar de você vai além da estética.
               </h1>
@@ -41,7 +41,7 @@ export default async function SobrePage() {
               </div>
             </div>
 
-            <div className="relative aspect-[3/4] w-full">
+            <div className="relative aspect-[3/4] w-full" data-reveal="right">
               <Image
                 src="/portfolio/yasmin-retrato.jpg"
                 alt="Retrato de Yasmin Guimarães"
@@ -56,12 +56,21 @@ export default async function SobrePage() {
 
       <Section tone="espresso" space="default" aria-labelledby="depoimentos-titulo">
         <Container>
-          <h2 id="depoimentos-titulo" className="text-display text-creme max-w-[16ch]">
+          <h2
+            id="depoimentos-titulo"
+            className="text-display text-creme max-w-[16ch]"
+            data-reveal="up"
+          >
             O que elas contam depois.
           </h2>
           <ul className="mt-14 grid gap-x-12 gap-y-10 md:grid-cols-3">
-            {testimonials.map((item) => (
-              <li key={item.id} className="border-creme/15 border-t pt-6">
+            {testimonials.map((item, index) => (
+              <li
+                key={item.id}
+                data-reveal="up"
+                style={{ transitionDelay: `${index * 90}ms` }}
+                className="border-creme/15 border-t pt-6"
+              >
                 <blockquote className="text-creme font-display text-[1.2rem] leading-snug">
                   {item.quote}
                 </blockquote>

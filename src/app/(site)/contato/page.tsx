@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { StudioMap } from "@/components/sections/studio-map";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import { site } from "@/config/site";
@@ -47,38 +48,17 @@ export default async function ContatoPage() {
                 </a>
               </div>
 
-              <div className="mt-14 space-y-8">
-                <div>
-                  <h2 className="font-display text-title">Onde fica</h2>
-                  <address className="text-tinta-suave mt-3 space-y-1 not-italic">
-                    <p>{site.address.street}</p>
-                    <p>
-                      {site.address.district}, {site.address.city} — {site.address.state}
-                    </p>
-                    <p>{site.address.note}</p>
-                  </address>
-                  <a
-                    href={site.address.mapsUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-ouro-escuro mt-3 inline-block underline underline-offset-4"
-                  >
-                    Abrir no Google Maps
-                  </a>
-                </div>
-
-                <div>
-                  <h2 className="font-display text-title">Formas de pagamento</h2>
-                  <ul className="text-tinta-suave mt-3 space-y-1">
-                    {payments.map((method) => (
-                      <li key={method}>{method}</li>
-                    ))}
-                  </ul>
-                </div>
+              <div className="mt-14" data-reveal="up">
+                <h2 className="font-display text-title">Formas de pagamento</h2>
+                <ul className="text-tinta-suave mt-3 space-y-1">
+                  {payments.map((method) => (
+                    <li key={method}>{method}</li>
+                  ))}
+                </ul>
               </div>
             </div>
 
-            <div>
+            <div data-reveal="up">
               <h2 className="font-display text-title">No dia da sessão</h2>
               <ul className="mt-6">
                 {tips.map((tip) => (
@@ -95,6 +75,8 @@ export default async function ContatoPage() {
         </Container>
       </Section>
 
+      <StudioMap />
+
       <Section
         id="politica"
         tone="pedra"
@@ -102,12 +84,17 @@ export default async function ContatoPage() {
         aria-labelledby="politica-titulo"
       >
         <Container>
-          <h2 id="politica-titulo" className="text-display max-w-[18ch]">
+          <h2 id="politica-titulo" className="text-display max-w-[18ch]" data-reveal="up">
             Política de atendimento.
           </h2>
           <ul className="mt-12 grid gap-x-12 gap-y-8 md:grid-cols-2 lg:grid-cols-3">
-            {policy.map((item) => (
-              <li key={item.title} className="border-tinta/25 border-t pt-5">
+            {policy.map((item, index) => (
+              <li
+                key={item.title}
+                data-reveal="up"
+                style={{ transitionDelay: `${index * 70}ms` }}
+                className="border-tinta/25 border-t pt-5"
+              >
                 <h3 className="font-sans font-medium">{item.title}</h3>
                 <p className="text-tinta mt-2 max-w-[42ch] text-[0.92rem] leading-relaxed">
                   {item.body}
