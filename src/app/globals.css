@@ -1,0 +1,197 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   Design tokens — Yasmin Guimarães Studio
+   Extraídos da identidade impressa: dourado sobre preto (marca),
+   papel greige do catálogo e creme das peças de taping.
+   ------------------------------------------------------------------ */
+@theme {
+  /* Superfícies */
+  --color-linho: #f2ebe0; /* fundo padrão das páginas */
+  --color-papel: #fbf7f1; /* superfícies elevadas sobre o linho */
+  --color-pedra: #b4a894; /* greige do catálogo, faixas e divisores */
+  --color-pedra-claro: #d9d0c1;
+  --color-espresso: #1c1610; /* fundo escuro, herdado do fundo da marca */
+  --color-espresso-claro: #2b221a;
+
+  /* Tinta */
+  --color-tinta: #2b231a; /* texto sobre superfície clara */
+  --color-tinta-suave: #6b5f51; /* texto secundário sobre claro */
+  --color-creme: #efe7db; /* texto sobre superfície escura */
+  --color-creme-suave: #ab9f8f; /* texto secundário sobre escuro */
+
+  /* Dourado da marca */
+  --color-ouro: #a87c46;
+  --color-ouro-claro: #c89f63; /* legível sobre espresso */
+  --color-ouro-escuro: #7c5726; /* legível sobre linho */
+
+  /* Tipografia */
+  --font-display: var(--font-bodoni), "Bodoni Moda", Georgia, "Times New Roman", serif;
+  --font-sans:
+    var(--font-archivo), "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Escala fluida — Bringhurst, razão ~1.25 no corpo e saltos largos no display */
+  --text-display-xl: clamp(3rem, 1.5rem + 6vw, 6.5rem);
+  --text-display-xl--line-height: 0.94;
+  --text-display-xl--letter-spacing: -0.02em;
+
+  --text-display: clamp(2.25rem, 1.4rem + 3.4vw, 4rem);
+  --text-display--line-height: 1;
+  --text-display--letter-spacing: -0.015em;
+
+  --text-title: clamp(1.5rem, 1.2rem + 1.2vw, 2.125rem);
+  --text-title--line-height: 1.15;
+
+  --text-lead: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
+  --text-lead--line-height: 1.6;
+
+  --text-micro: 0.8125rem;
+  --text-micro--line-height: 1.45;
+  --text-micro--letter-spacing: 0.01em;
+
+  /* Ritmo e movimento */
+  --spacing-gutter: 1.5rem;
+  --radius-soft: 2px;
+  --ease-calmo: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  :root {
+    color-scheme: light;
+    scroll-behavior: smooth;
+    /* Compensa o header fixo ao pular por âncora */
+    scroll-padding-top: 6rem;
+  }
+
+  body {
+    background-color: var(--color-linho);
+    color: var(--color-tinta);
+    font-family: var(--font-sans);
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Grão de papel: a identidade impressa tem textura, a tela também deve ter. */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    pointer-events: none;
+    opacity: 0.035;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-ouro-escuro);
+    outline-offset: 3px;
+    border-radius: 1px;
+  }
+
+  ::selection {
+    background: var(--color-ouro);
+    color: var(--color-papel);
+  }
+
+  /* Sobre fundo escuro o foco precisa do dourado claro */
+  .on-dark :focus-visible {
+    outline-color: var(--color-ouro-claro);
+  }
+}
+
+/* ------------------------------------------------------------------
+   Entrada do hero — a única sequência de movimento não solicitada do site.
+   Em CSS de propósito: roda sem JavaScript, não depende de rAF e o
+   `prefers-reduced-motion` abaixo neutraliza tudo de uma vez.
+   ------------------------------------------------------------------ */
+@keyframes entrada-subir {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes entrada-revelar {
+  from {
+    opacity: 0;
+    clip-path: inset(100% 0 0 0);
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+    transform: none;
+  }
+}
+
+@keyframes entrada-foto {
+  from {
+    opacity: 0;
+    transform: scale(1.04);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@layer utilities {
+  .entrada {
+    animation: entrada-subir 0.7s var(--ease-calmo) both;
+  }
+
+  .entrada-titulo {
+    animation: entrada-revelar 0.95s var(--ease-calmo) both;
+  }
+
+  .entrada-foto {
+    animation: entrada-foto 1.2s var(--ease-calmo) both;
+  }
+
+  /* Filete dourado usado como divisor estrutural */
+  .rule-ouro {
+    background: linear-gradient(
+      to right,
+      color-mix(in srgb, var(--color-ouro) 65%, transparent),
+      transparent
+    );
+    height: 1px;
+  }
+
+  .text-balance-none {
+    text-wrap: initial;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
