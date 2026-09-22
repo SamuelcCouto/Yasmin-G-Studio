@@ -5,6 +5,8 @@ import { bookingMessage, whatsappUrl } from "@/lib/utils/whatsapp";
 type BookingCtaProps = {
   /** Nome do serviço, para pré-preencher a mensagem. */
   serviceName?: string;
+  /** Substitui a mensagem inteira quando o pedido não é um agendamento. */
+  message?: string;
   label?: string;
   variant?: ButtonVariant;
   size?: ButtonSize;
@@ -20,6 +22,7 @@ type BookingCtaProps = {
  */
 export function BookingCta({
   serviceName,
+  message,
   label = "Agendar no WhatsApp",
   variant = "solid",
   size = "md",
@@ -27,7 +30,7 @@ export function BookingCta({
 }: BookingCtaProps) {
   return (
     <ButtonLink
-      href={whatsappUrl(bookingMessage(serviceName))}
+      href={whatsappUrl(message ?? bookingMessage(serviceName))}
       variant={variant}
       size={size}
       className={className}

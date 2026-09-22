@@ -64,7 +64,7 @@ export function Header() {
           <Logo />
 
           <nav aria-label="Principal" className="hidden lg:block">
-            <ul className="flex items-center gap-9">
+            <ul className="flex items-center gap-8">
               {mainNav.map((item) => {
                 const active = activeSection === item.href.slice(1);
                 return (

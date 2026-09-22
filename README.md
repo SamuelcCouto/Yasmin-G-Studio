@@ -64,7 +64,7 @@ troca de rota — porque parte das clientes rola do topo ao rodapé sem clicar e
 nada. Ordem das seções, que é também a ordem de `config/nav.ts`:
 
 ```
-Hero → Serviços → Pacotes → Protocolos → Sobre → Depoimentos
+Hero → Serviços → Pacotes → Protocolos → Eventos → Sobre → Depoimentos
      → Contato → Onde fica (mapa) → Política → Rodapé
 ```
 

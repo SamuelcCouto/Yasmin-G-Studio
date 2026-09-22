@@ -157,23 +157,50 @@ function sorteio(semente: number) {
   };
 }
 
-const r = sorteio(20260922);
 const arred = (n: number) => Math.round(n * 100) / 100;
 
-const GRAOS = Array.from({ length: 26 }, () => ({
-  left: arred(r() * 100),
-  top: arred(18 + r() * 78),
-  size: arred(1.5 + r() * 3),
-  dur: arred(15 + r() * 16),
-  atraso: arred(-r() * 24),
-  deriva: arred((r() - 0.5) * 44),
-  brilho: arred(0.22 + r() * 0.45),
-}));
+type Grao = {
+  left: number;
+  top: number;
+  size: number;
+  dur: number;
+  atraso: number;
+  deriva: number;
+  brilho: number;
+};
 
-export function PoeiraDeOuro({ className }: { className?: string }) {
+/** Um desenho por semente, calculado uma vez só. */
+const cacheGraos = new Map<number, Grao[]>();
+
+function graos(semente: number): Grao[] {
+  const pronto = cacheGraos.get(semente);
+  if (pronto) return pronto;
+
+  const r = sorteio(semente);
+  const lista = Array.from({ length: 26 }, () => ({
+    left: arred(r() * 100),
+    top: arred(18 + r() * 78),
+    size: arred(1.5 + r() * 3),
+    dur: arred(15 + r() * 16),
+    atraso: arred(-r() * 24),
+    deriva: arred((r() - 0.5) * 44),
+    brilho: arred(0.22 + r() * 0.45),
+  }));
+  cacheGraos.set(semente, lista);
+  return lista;
+}
+
+export function PoeiraDeOuro({
+  className,
+  semente = 20260922,
+}: {
+  className?: string;
+  /** Sementes diferentes dão desenhos diferentes em cada seção. */
+  semente?: number;
+}) {
   return (
     <div aria-hidden="true" data-ambiente className={cn("ornamento inset-0", className)}>
-      {GRAOS.map((g, i) => (
+      {graos(semente).map((g, i) => (
         <span
           key={i}
           className="grao-poeira bg-ouro-claro absolute rounded-full shadow-[0_0_7px_1px_rgb(219_182_121/0.35)]"

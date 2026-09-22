@@ -1,5 +1,6 @@
 import * as catalog from "@/lib/data/catalog";
 import type {
+  EventPackage,
   Package,
   Protocol,
   Service,
@@ -59,6 +60,10 @@ export async function getProtocols(): Promise<Protocol[]> {
 
 export async function getProtocolBySlug(slug: string): Promise<Protocol | null> {
   return catalog.protocols.find((protocol) => protocol.slug === slug) ?? null;
+}
+
+export async function getEventPackages(): Promise<EventPackage[]> {
+  return catalog.eventPackages;
 }
 
 export async function getTestimonials(): Promise<Testimonial[]> {

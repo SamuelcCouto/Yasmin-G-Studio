@@ -1,5 +1,6 @@
 import { About } from "@/components/sections/about";
 import { Contact } from "@/components/sections/contact";
+import { Events } from "@/components/sections/events";
 import { Hero } from "@/components/sections/hero";
 import { Packages } from "@/components/sections/packages";
 import { Policy } from "@/components/sections/policy";
@@ -30,6 +31,7 @@ export default async function HomePage() {
 
       <Packages />
       <Protocols />
+      <Events />
       <About />
       <Testimonials />
       <Contact />

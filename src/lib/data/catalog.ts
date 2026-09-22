@@ -1,4 +1,5 @@
 import type {
+  EventPackage,
   Package,
   Protocol,
   Service,
@@ -241,7 +242,7 @@ export const testimonials: Testimonial[] = [
   },
   {
     id: "tst-lipedema",
-    author: "Cliente do studio",
+    author: "Cliente de drenagem linfática",
     quote:
       "Já na primeira sessão de drenagem senti que desinchei absurdamente, e até o lipedema da minha perna diminuiu. A sessão de hoje foi ainda melhor.",
     source: "whatsapp",
@@ -252,6 +253,36 @@ export const testimonials: Testimonial[] = [
     quote:
       "A diferença é bem visível nas fotos. Antes da massagem eu estava com incômodo por causa da menstruação, depois todo incômodo sumiu.",
     source: "whatsapp",
+  },
+];
+
+/**
+ * Pacotes para eventos, conforme a arte de divulgação da Yasmin
+ * (public/eventos/pacotes-relaxamento.jpg). Valores sob consulta.
+ */
+export const eventPackages: EventPackage[] = [
+  {
+    id: "evt-quick",
+    name: "Quick massage",
+    description: "15 minutos por pessoa, na cadeira, com roupa e sem óleo.",
+  },
+  {
+    id: "evt-combo",
+    name: "Combo completo",
+    description:
+      "15 minutos de quick massage e mais 15 de Pés Leves, com creme ou óleo.",
+  },
+  {
+    id: "evt-pes",
+    name: "Pés Leves",
+    description:
+      "Massagem só nos pés, com creme ou óleo e reflexologia. Não precisa de cadeira.",
+  },
+  {
+    id: "evt-noiva",
+    name: "Pacote noiva",
+    description:
+      "40 minutos de massagem relaxante exclusiva para a noiva, e Pés Leves para as madrinhas.",
   },
 ];
 

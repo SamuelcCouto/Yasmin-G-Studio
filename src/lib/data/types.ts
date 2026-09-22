@@ -10,6 +10,13 @@ export type ServiceCategorySlug =
   | "taping"
   | "recursos";
 
+/** Pacote levado até o evento da cliente (casamento, aniversário, empresa). */
+export type EventPackage = {
+  id: string;
+  name: string;
+  description: string;
+};
+
 export type ImageRef = {
   src: string;
   alt: string;
@@ -59,6 +66,10 @@ export type Protocol = {
 
 export type Testimonial = {
   id: string;
+  /**
+   * Nunca o nome da cliente: a Yasmin pediu que os depoimentos saiam
+   * anônimos. Identifique pelo serviço que a própria fala menciona.
+   */
   author: string;
   quote: string;
   source: "google" | "whatsapp" | "instagram";
