@@ -24,7 +24,7 @@ export default async function HomePage() {
 
       <ServiceMenu
         id="servicos"
-        title="Cardápio do studio"
+        title="Catálogo do studio"
         intro="Todos os valores são por sessão. Se você não souber por onde começar, me conte como está o seu corpo e eu indico o caminho."
         groups={groups}
       />

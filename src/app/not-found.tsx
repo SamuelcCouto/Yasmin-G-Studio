@@ -8,7 +8,7 @@ export default function NotFound() {
       <Container className="py-24">
         <h1 className="text-display-xl max-w-[16ch]">Essa página não existe</h1>
         <p className="text-lead text-luz-suave mt-6 max-w-[46ch]">
-          O endereço pode ter mudado. Volte para a home ou veja o cardápio de
+          O endereço pode ter mudado. Volte para a home ou veja o catálogo de
           serviços do studio.
         </p>
         <div className="mt-10 flex flex-wrap gap-8">
