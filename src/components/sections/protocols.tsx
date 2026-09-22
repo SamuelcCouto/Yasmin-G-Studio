@@ -1,3 +1,4 @@
+import { LotoRespira } from "@/components/brand/ornamentos";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import { BookingCta } from "@/features/booking/components/booking-cta";
@@ -14,6 +15,12 @@ export async function Protocols() {
       space="generous"
       aria-labelledby="protocolos-titulo"
     >
+      <LotoRespira
+        className="-bottom-40 -left-[14rem]"
+        tamanho="w-[40rem]"
+        tom="ouro-escuro"
+        respira={[0.08, 0.13]}
+      />
       <Container>
         <div className="max-w-[46rem]" data-reveal="up">
           <h2 id="protocolos-titulo" className="text-display text-tinta">

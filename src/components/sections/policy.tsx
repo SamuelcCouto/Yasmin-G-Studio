@@ -1,3 +1,4 @@
+import { LinhasDeToque } from "@/components/brand/ornamentos";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import { getAttendancePolicy } from "@/lib/data/repository";
@@ -7,6 +8,7 @@ export async function Policy() {
 
   return (
     <Section id="politica" tone="barro" space="default" aria-labelledby="politica-titulo">
+      <LinhasDeToque className="-top-20" tom="ouro-escuro" intensidade={0.8} />
       <Container>
         <h2 id="politica-titulo" className="text-display max-w-[18ch]" data-reveal="up">
           Política de atendimento

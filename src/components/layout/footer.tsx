@@ -1,4 +1,5 @@
 import { Logo } from "@/components/brand/logo";
+import { LotoRespira } from "@/components/brand/ornamentos";
 import { Container } from "@/components/ui/container";
 import { footerNav } from "@/config/nav";
 import { site } from "@/config/site";
@@ -8,8 +9,12 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-noite text-luz">
-      <Container className="py-20 md:py-24">
+    <footer
+      data-tone="noite"
+      className="faixa text-luz [--faixa-pad:5rem] md:[--faixa-pad:6rem]"
+    >
+      <LotoRespira className="-right-[10rem] -bottom-[14rem]" tamanho="w-[40rem]" />
+      <Container>
         <div className="grid gap-14 lg:grid-cols-[1.15fr_1fr] lg:gap-20">
           <div data-reveal="up">
             <h2 className="text-display text-luz max-w-[12ch]">

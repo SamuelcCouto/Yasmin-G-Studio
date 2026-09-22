@@ -208,6 +208,207 @@
   }
 }
 
+/* ------------------------------------------------------------------
+   Faixas com degradê.
+
+   Cada seção pinta o próprio padding superior com um degradê que parte
+   da cor média entre ela e a vizinha de cima, e o padding inferior com
+   a cor média entre ela e a de baixo. As duas metades se encontram na
+   mesma cor, então a emenda some — e o degradê acaba antes do conteúdo,
+   então nenhum texto fica sobre fundo de transição.
+
+   A vizinhança é descoberta no CSS (`+` e `:has(+)`): mudar a ordem das
+   seções em page.tsx não exige tocar em nada daqui.
+
+   Em @layer components para que as utilitárias `[--faixa-pad:…]` da
+   Section vençam o valor padrão.
+   ------------------------------------------------------------------ */
+@layer components {
+  .faixa {
+    --faixa-pad: 6rem;
+    --faixa-de: var(--faixa-cor);
+    --faixa-para: var(--faixa-cor);
+    position: relative;
+    isolation: isolate;
+    /* clip e não hidden: hidden viraria contêiner de rolagem e quebraria o
+       título fixo (sticky) do cardápio. */
+    overflow: clip;
+    padding-block: var(--faixa-pad);
+    background-color: var(--faixa-cor);
+    background-image:
+      linear-gradient(
+        to bottom,
+        color-mix(in oklab, var(--faixa-de) 50%, var(--faixa-cor)),
+        var(--faixa-cor)
+      ),
+      linear-gradient(
+        to top,
+        color-mix(in oklab, var(--faixa-para) 50%, var(--faixa-cor)),
+        var(--faixa-cor)
+      );
+    background-size: 100% var(--faixa-pad);
+    background-position: top, bottom;
+    background-repeat: no-repeat;
+  }
+
+  [data-tone="noite"] {
+    --faixa-cor: var(--color-noite);
+  }
+  [data-tone="pele"] {
+    --faixa-cor: var(--color-pele);
+  }
+  [data-tone="pele-alta"] {
+    --faixa-cor: var(--color-pele-alta);
+  }
+  [data-tone="barro"] {
+    --faixa-cor: var(--color-barro);
+  }
+
+  /* De onde vem: a cor da seção de cima. */
+  [data-tone="noite"] + .faixa {
+    --faixa-de: var(--color-noite);
+  }
+  [data-tone="pele"] + .faixa {
+    --faixa-de: var(--color-pele);
+  }
+  [data-tone="pele-alta"] + .faixa {
+    --faixa-de: var(--color-pele-alta);
+  }
+  [data-tone="barro"] + .faixa {
+    --faixa-de: var(--color-barro);
+  }
+
+  /* Para onde vai: a cor da seção de baixo. */
+  .faixa:has(+ [data-tone="noite"]) {
+    --faixa-para: var(--color-noite);
+  }
+  .faixa:has(+ [data-tone="pele"]) {
+    --faixa-para: var(--color-pele);
+  }
+  .faixa:has(+ [data-tone="pele-alta"]) {
+    --faixa-para: var(--color-pele-alta);
+  }
+  .faixa:has(+ [data-tone="barro"]) {
+    --faixa-para: var(--color-barro);
+  }
+
+  /* O rodapé mora fora do <main>: a última seção e ele se enxergam por aqui. */
+  main:has(+ [data-tone="noite"]) > .faixa:last-child {
+    --faixa-para: var(--color-noite);
+  }
+  main:has(> [data-tone="pele"]:last-child) + .faixa {
+    --faixa-de: var(--color-pele);
+  }
+  main:has(> [data-tone="pele-alta"]:last-child) + .faixa {
+    --faixa-de: var(--color-pele-alta);
+  }
+  main:has(> [data-tone="barro"]:last-child) + .faixa {
+    --faixa-de: var(--color-barro);
+  }
+
+  /* ----------------------------------------------------------------
+     Ornamentos. Ficam atrás do conteúdo (z -1 dentro da faixa isolada)
+     e nunca recebem clique.
+     ---------------------------------------------------------------- */
+  .ornamento {
+    position: absolute;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  /* Gota de luz correndo pela linha: a linfa, o deslizar das mãos. */
+  .linha-gota {
+    stroke-dasharray: 46 954;
+    animation: gota var(--dur, 18s) linear infinite;
+    animation-delay: var(--atraso, 0s);
+  }
+
+  /* O lótus da marca respirando. */
+  .loto-respira {
+    opacity: var(--respira-min, 0.05);
+    animation: respirar 12s ease-in-out infinite;
+  }
+
+  /* Poeira de ouro na luz baixa. */
+  .grao-poeira {
+    opacity: var(--brilho, 0.4);
+    animation: poeira var(--dur, 20s) linear infinite;
+    animation-delay: var(--atraso, 0s);
+  }
+
+  /* Fora da tela não há por que gastar quadro: o ScrollReveal liga e
+     desliga `is-playing` em cada `[data-ambiente]`. Sem JS, roda sempre. */
+  .js [data-ambiente]:not(.is-playing) :is(.linha-gota, .loto-respira, .grao-poeira) {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes gota {
+  from {
+    stroke-dashoffset: 1000;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes respirar {
+  0%,
+  100% {
+    scale: 1;
+    opacity: var(--respira-min, 0.05);
+  }
+  50% {
+    scale: 1.045;
+    opacity: var(--respira-max, 0.08);
+  }
+}
+
+@keyframes poeira {
+  0% {
+    translate: 0 0;
+    opacity: 0;
+  }
+  15%,
+  80% {
+    opacity: var(--brilho, 0.4);
+  }
+  100% {
+    translate: var(--deriva, 10px) -150px;
+    opacity: 0;
+  }
+}
+
+@keyframes paralaxe {
+  from {
+    translate: 0 var(--paralaxe, 70px);
+  }
+  to {
+    translate: 0 calc(var(--paralaxe, 70px) * -1);
+  }
+}
+
+/* Paralaxe atrelada ao scroll, sem JavaScript. Onde o navegador não
+   suporta `animation-timeline`, o ornamento só fica parado. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .paralaxe {
+      animation: paralaxe linear both;
+      animation-timeline: view();
+      animation-range: cover;
+    }
+  }
+}
+
+/* Quem pede menos movimento fica com as linhas e o lótus parados; a gota
+   e a poeira só existem enquanto se movem, então saem de cena. */
+@media (prefers-reduced-motion: reduce) {
+  .linha-gota,
+  .grao-poeira {
+    display: none;
+  }
+}
+
 @layer utilities {
   .entrada {
     animation: entrada-subir 0.7s var(--ease-calmo) both;

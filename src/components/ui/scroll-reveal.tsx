@@ -66,5 +66,27 @@ export function ScrollReveal() {
     };
   }, [pathname]);
 
+  /**
+   * Ornamentos (`[data-ambiente]`) só animam enquanto estão perto da tela.
+   * Diferente do reveal, liga e desliga nos dois sentidos: quem rola para
+   * longe para de gastar quadro com uma gota de luz que ninguém está vendo.
+   */
+  useEffect(() => {
+    if (!("IntersectionObserver" in window)) return;
+    const ambientes = document.querySelectorAll<HTMLElement>("[data-ambiente]");
+    if (ambientes.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          entry.target.classList.toggle("is-playing", entry.isIntersecting);
+        });
+      },
+      { rootMargin: "160px 0px" },
+    );
+    ambientes.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, [pathname]);
+
   return null;
 }

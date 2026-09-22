@@ -6,31 +6,37 @@ import { cn } from "@/lib/utils/cn";
  * `noite` é o padrão da página — a sala com a luz baixa. As faixas claras
  * existem onde se lê detalhe (contato, endereço, política) e carregam
  * `on-light`, que corrige a cor do anel de foco.
+ *
+ * O fundo não mora aqui: vem de `.faixa` (globals.css), que lê o `data-tone`
+ * desta seção e o das vizinhas para pintar o degradê de transição.
  */
-type Tone = "noite" | "pele" | "pele-alta" | "barro";
+export type Tone = "noite" | "pele" | "pele-alta" | "barro";
 
 type SectionProps = {
   id?: string;
   children: ReactNode;
   tone?: Tone;
   className?: string;
-  /** Controla o respiro vertical. Só a Section define margem entre blocos. */
+  /**
+   * Respiro vertical. É também o comprimento do degradê: a transição
+   * acontece inteira dentro do padding, nunca por trás do texto.
+   */
   space?: "none" | "compact" | "default" | "generous";
   "aria-labelledby"?: string;
 };
 
 const tones: Record<Tone, string> = {
-  noite: "bg-noite text-luz",
-  pele: "on-light bg-pele text-tinta",
-  "pele-alta": "on-light bg-pele-alta text-tinta",
-  barro: "on-light bg-barro text-tinta",
+  noite: "text-luz",
+  pele: "on-light text-tinta",
+  "pele-alta": "on-light text-tinta",
+  barro: "on-light text-tinta",
 };
 
 const spaces = {
-  none: "",
-  compact: "py-16 md:py-24",
-  default: "py-24 md:py-32",
-  generous: "py-28 md:py-44",
+  none: "[--faixa-pad:0rem]",
+  compact: "[--faixa-pad:4rem] md:[--faixa-pad:6rem]",
+  default: "[--faixa-pad:6rem] md:[--faixa-pad:8rem]",
+  generous: "[--faixa-pad:7rem] md:[--faixa-pad:11rem]",
 } as const;
 
 export function Section({
@@ -42,7 +48,12 @@ export function Section({
   ...rest
 }: SectionProps) {
   return (
-    <section id={id} className={cn(tones[tone], spaces[space], className)} {...rest}>
+    <section
+      id={id}
+      data-tone={tone}
+      className={cn("faixa", tones[tone], spaces[space], className)}
+      {...rest}
+    >
       {children}
     </section>
   );

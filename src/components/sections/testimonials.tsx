@@ -1,3 +1,4 @@
+import { LotoRespira } from "@/components/brand/ornamentos";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import { getTestimonials } from "@/lib/data/repository";
@@ -12,6 +13,11 @@ export async function Testimonials() {
       space="default"
       aria-labelledby="depoimentos-titulo"
     >
+      <LotoRespira
+        className="top-1/2 left-1/2 -mt-[16rem] -ml-[24rem]"
+        tamanho="w-[48rem]"
+        respira={[0.04, 0.07]}
+      />
       <Container>
         <h2
           id="depoimentos-titulo"

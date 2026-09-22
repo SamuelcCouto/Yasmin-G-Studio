@@ -1,5 +1,6 @@
 import Image from "next/image";
 
+import { LinhasDeToque } from "@/components/brand/ornamentos";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import { BookingCta } from "@/features/booking/components/booking-cta";
@@ -7,6 +8,7 @@ import { BookingCta } from "@/features/booking/components/booking-cta";
 export function About() {
   return (
     <Section id="sobre" tone="pele" space="generous" aria-labelledby="sobre-titulo">
+      <LinhasDeToque className="-bottom-28" tom="ouro-escuro" intensidade={0.75} />
       <Container>
         <div className="grid items-start gap-14 lg:grid-cols-[1fr_0.8fr] lg:gap-24">
           <div data-reveal="left">

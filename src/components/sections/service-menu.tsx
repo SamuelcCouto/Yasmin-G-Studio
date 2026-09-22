@@ -1,3 +1,4 @@
+import { LotoRespira } from "@/components/brand/ornamentos";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import type { ServiceGroup } from "@/lib/data/repository";
@@ -20,6 +21,7 @@ type ServiceMenuProps = {
 export function ServiceMenu({ groups, title, intro, id, children }: ServiceMenuProps) {
   return (
     <Section id={id} tone="noite" space="generous" aria-labelledby={`${id}-titulo`}>
+      <LotoRespira className="top-[6%] -right-[16rem]" tamanho="w-[46rem]" />
       <Container>
         <div className="grid gap-12 lg:grid-cols-[minmax(0,20rem)_1fr] lg:gap-20">
           <div className="lg:sticky lg:top-32 lg:self-start" data-reveal="up">

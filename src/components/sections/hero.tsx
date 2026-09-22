@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 import { ButtonLink } from "@/components/ui/button";
+import { LinhasDeToque, PoeiraDeOuro } from "@/components/brand/ornamentos";
 import { Container } from "@/components/ui/container";
 import { site } from "@/config/site";
 import { BookingCta } from "@/features/booking/components/booking-cta";
@@ -22,7 +23,9 @@ const fatos = [
  */
 export function Hero() {
   return (
-    <section className="bg-noite text-luz relative overflow-hidden">
+    <section data-tone="noite" className="bg-noite text-luz relative isolate overflow-clip">
+      <PoeiraDeOuro />
+      <LinhasDeToque className="top-[34%]" intensidade={0.9} />
       <Container className="relative">
         <div className="grid items-center gap-12 pt-28 pb-20 lg:grid-cols-[1fr_0.82fr] lg:gap-16 lg:pt-44 lg:pb-32">
           <div>

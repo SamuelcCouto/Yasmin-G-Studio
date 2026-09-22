@@ -1,3 +1,4 @@
+import { LinhasDeToque } from "@/components/brand/ornamentos";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import { getPackages } from "@/lib/data/repository";
@@ -8,6 +9,7 @@ export async function Packages() {
 
   return (
     <Section id="pacotes" tone="noite" space="default" aria-labelledby="pacotes-titulo">
+      <LinhasDeToque className="-bottom-24" intensidade={0.85} />
       <Container>
         <h2
           id="pacotes-titulo"
