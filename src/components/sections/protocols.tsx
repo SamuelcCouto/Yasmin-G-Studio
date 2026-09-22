@@ -10,14 +10,14 @@ export async function Protocols() {
   return (
     <Section
       id="protocolos"
-      tone="papel"
+      tone="barro"
       space="generous"
       aria-labelledby="protocolos-titulo"
     >
       <Container>
         <div className="max-w-[46rem]" data-reveal="up">
           <h2 id="protocolos-titulo" className="text-display text-tinta">
-            Protocolos personalizados.
+            Protocolos personalizados
           </h2>
           <p className="text-lead text-tinta-suave mt-6 max-w-[52ch]">
             Combinações de técnicas pensadas para um objetivo específico, com número
@@ -31,7 +31,7 @@ export async function Protocols() {
               key={protocol.id}
               data-reveal="up"
               style={{ transitionDelay: `${(index % 2) * 90}ms` }}
-              className="border-pedra/45 border-t pt-8"
+              className="border-tinta/25 border-t pt-8"
             >
               <div className="flex items-baseline justify-between gap-6">
                 <h3 className="font-display text-title text-tinta">{protocol.name}</h3>

@@ -57,7 +57,7 @@ export function Header() {
       <header
         className={cn(
           "fixed inset-x-0 top-0 z-40 transition-colors duration-300",
-          scrolled ? "bg-linho/90 backdrop-blur-md" : "bg-transparent",
+          scrolled ? "bg-noite/85 backdrop-blur-md" : "bg-transparent",
         )}
       >
         <Container className="flex h-20 items-center justify-between gap-6">
@@ -75,7 +75,7 @@ export function Header() {
                       className={cn(
                         "font-sans text-[0.84rem] tracking-[0.04em] transition-colors",
                         "decoration-ouro decoration-1 underline-offset-[10px]",
-                        active ? "text-ouro-escuro underline" : "hover:text-ouro-escuro",
+                        active ? "text-ouro underline" : "text-luz-suave hover:text-luz",
                       )}
                     >
                       {item.label}

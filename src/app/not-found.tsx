@@ -4,10 +4,10 @@ import { Container } from "@/components/ui/container";
 
 export default function NotFound() {
   return (
-    <main className="bg-linho text-tinta flex min-h-screen items-center">
+    <main className="bg-noite text-luz flex min-h-screen items-center">
       <Container className="py-24">
-        <h1 className="text-display-xl max-w-[16ch]">Essa página não existe.</h1>
-        <p className="text-lead text-tinta-suave mt-6 max-w-[46ch]">
+        <h1 className="text-display-xl max-w-[16ch]">Essa página não existe</h1>
+        <p className="text-lead text-luz-suave mt-6 max-w-[46ch]">
           O endereço pode ter mudado. Volte para a home ou veja o cardápio de
           serviços do studio.
         </p>

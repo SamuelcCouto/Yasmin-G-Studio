@@ -72,7 +72,7 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
       aria-label="Menu"
       inert={!open}
       className={cn(
-        "on-dark bg-espresso text-creme fixed inset-0 z-50 flex flex-col",
+        "bg-noite text-luz fixed inset-0 z-50 flex flex-col",
         "transition-[opacity,visibility] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
         open ? "visible opacity-100" : "invisible opacity-0",
         "lg:hidden",
@@ -112,9 +112,9 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
         </ul>
       </nav>
 
-      <div className="border-creme/15 space-y-4 border-t px-6 py-8">
+      <div className="border-luz/15 space-y-4 border-t px-6 py-8">
         <BookingCta variant="ouro" className="w-full" />
-        <p className="text-creme-suave text-micro">
+        <p className="text-luz-suave text-micro">
           {site.contact.phone}
           <br />
           {site.address.district}, {site.address.city}

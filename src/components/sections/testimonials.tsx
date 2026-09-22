@@ -8,17 +8,17 @@ export async function Testimonials() {
   return (
     <Section
       id="depoimentos"
-      tone="espresso"
+      tone="noite"
       space="default"
       aria-labelledby="depoimentos-titulo"
     >
       <Container>
         <h2
           id="depoimentos-titulo"
-          className="text-display text-creme max-w-[16ch]"
+          className="text-display text-luz max-w-[16ch]"
           data-reveal="up"
         >
-          O que elas contam depois.
+          O que elas contam depois
         </h2>
         <ul className="mt-14 grid gap-x-12 gap-y-10 md:grid-cols-3">
           {testimonials.map((item, index) => (
@@ -26,12 +26,12 @@ export async function Testimonials() {
               key={item.id}
               data-reveal="up"
               style={{ transitionDelay: `${index * 90}ms` }}
-              className="border-creme/15 border-t pt-6"
+              className="border-luz/15 border-t pt-6"
             >
-              <blockquote className="text-creme font-display text-[1.2rem] leading-snug">
+              <blockquote className="text-luz font-display text-[1.2rem] leading-snug">
                 {item.quote}
               </blockquote>
-              <p className="text-creme-suave text-micro mt-4">{item.author}</p>
+              <p className="text-luz-suave text-micro mt-4">{item.author}</p>
             </li>
           ))}
         </ul>

@@ -9,89 +9,60 @@ type ServiceMenuProps = {
   intro?: string;
   id?: string;
   children?: React.ReactNode;
-  /**
-   * `1` quando o cardápio é o assunto da página (`/servicos`), `2` quando é um
-   * bloco dentro de outra página (home). Os títulos internos acompanham, para
-   * a hierarquia do documento continuar correta.
-   */
-  level?: 1 | 2;
 };
 
 /**
- * Cardápio de serviços. A estrutura é de lista de preços — nome, descrição e
- * valor na mesma linha — porque é assim que a cliente compara antes de
- * escolher. Nada de cards: cada linha é uma decisão.
+ * O cardápio. É a parte mais lida da página e é, literalmente, uma lista de
+ * preços — então usa o gesto de um cardápio impresso: o nome do serviço, um
+ * pontilhado dourado atravessando, e o valor na outra ponta. Sem fios de
+ * separação entre as linhas; o pontilhado já organiza a leitura.
  */
-export function ServiceMenu({
-  groups,
-  title,
-  intro,
-  id,
-  children,
-  level = 2,
-}: ServiceMenuProps) {
-  const headings = {
-    1: { title: "h1", category: "h2", service: "h3" },
-    2: { title: "h2", category: "h3", service: "h4" },
-  } as const;
-  const Title = headings[level].title;
-  const CategoryTitle = headings[level].category;
-  const ServiceTitle = headings[level].service;
-
+export function ServiceMenu({ groups, title, intro, id, children }: ServiceMenuProps) {
   return (
-    <Section id={id} tone="linho" space="generous" aria-labelledby={`${id}-titulo`}>
+    <Section id={id} tone="noite" space="generous" aria-labelledby={`${id}-titulo`}>
       <Container>
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,22rem)_1fr] lg:gap-20">
+        <div className="grid gap-12 lg:grid-cols-[minmax(0,20rem)_1fr] lg:gap-20">
           <div className="lg:sticky lg:top-32 lg:self-start" data-reveal="up">
-            <Title
-              id={`${id}-titulo`}
-              className={
-                level === 1
-                  ? "text-display-xl text-tinta"
-                  : "text-display text-tinta"
-              }
-            >
+            <h2 id={`${id}-titulo`} className="text-display text-luz">
               {title}
-            </Title>
+            </h2>
             {intro ? (
-              <p className="text-tinta-suave mt-5 max-w-[38ch] leading-relaxed">
-                {intro}
-              </p>
+              <p className="text-luz-suave mt-5 max-w-[38ch] leading-relaxed">{intro}</p>
             ) : null}
             {children ? <div className="mt-8">{children}</div> : null}
           </div>
 
-          <div className="space-y-16">
+          <div className="space-y-14">
             {groups.map((group) => (
               <div key={group.category.slug} data-reveal="up">
-                <CategoryTitle className="font-display text-title text-tinta">
+                <h3 className="font-display text-title text-ouro">
                   {group.category.name}
-                </CategoryTitle>
-                <p className="text-tinta-suave mt-2 max-w-[52ch] text-[0.92rem]">
+                </h3>
+                <p className="text-luz-suave mt-2 max-w-[52ch] text-[0.92rem]">
                   {group.category.intro}
                 </p>
 
-                <ul className="mt-8">
+                <ul className="mt-7 space-y-6">
                   {group.services.map((service) => (
-                    <li
-                      key={service.id}
-                      className="border-pedra/45 grid grid-cols-[1fr_auto] gap-x-8 gap-y-2 border-t py-6"
-                    >
-                      <ServiceTitle className="font-sans text-[1.05rem] font-medium">
-                        {service.name}
-                        {service.durationMinutes ? (
-                          <span className="text-tinta-suave font-normal">
-                            {" "}
-                            {formatDuration(service.durationMinutes)}
-                          </span>
-                        ) : null}
-                      </ServiceTitle>
-                      <p className="text-tinta font-sans text-[1.05rem] tabular-nums">
-                        {service.priceCents === null
-                          ? "Sob consulta"
-                          : formatPrice(service.priceCents)}
-                      </p>
-                      <p className="text-tinta-suave col-span-2 max-w-[56ch] text-[0.92rem] leading-relaxed">
+                    <li key={service.id}>
+                      <div className="text-ouro flex items-baseline gap-3">
+                        <h4 className="text-luz font-sans text-[1.05rem] font-medium">
+                          {service.name}
+                          {service.durationMinutes ? (
+                            <span className="text-luz-suave font-normal">
+                              {" "}
+                              {formatDuration(service.durationMinutes)}
+                            </span>
+                          ) : null}
+                        </h4>
+                        <span aria-hidden="true" className="conduz" />
+                        <p className="shrink-0 font-sans text-[1.05rem] tabular-nums">
+                          {service.priceCents === null
+                            ? "Sob consulta"
+                            : formatPrice(service.priceCents)}
+                        </p>
+                      </div>
+                      <p className="text-luz-suave mt-1.5 max-w-[56ch] text-[0.92rem] leading-relaxed">
                         {service.summary}
                       </p>
                     </li>

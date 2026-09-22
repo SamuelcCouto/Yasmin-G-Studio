@@ -11,12 +11,12 @@ export async function Contact() {
   ]);
 
   return (
-    <Section id="contato" tone="linho" space="generous" aria-labelledby="contato-titulo">
+    <Section id="contato" tone="pele" space="generous" aria-labelledby="contato-titulo">
       <Container>
         <div className="grid gap-14 lg:grid-cols-2 lg:gap-24">
           <div data-reveal="up">
             <h2 id="contato-titulo" className="text-display text-tinta">
-              Vamos marcar.
+              Vamos marcar
             </h2>
             <p className="text-lead text-tinta-suave mt-6 max-w-[46ch]">
               O atendimento é individual e com hora marcada. Me chame no WhatsApp
@@ -46,7 +46,7 @@ export async function Contact() {
             <h3 className="font-display text-title">No dia da sessão</h3>
             <ul className="mt-6">
               {tips.map((tip) => (
-                <li key={tip.title} className="border-pedra/45 border-t py-5">
+                <li key={tip.title} className="border-tinta/15 border-t py-5">
                   <h4 className="font-sans font-medium">{tip.title}</h4>
                   <p className="text-tinta-suave mt-1 max-w-[46ch] text-[0.92rem]">
                     {tip.body}

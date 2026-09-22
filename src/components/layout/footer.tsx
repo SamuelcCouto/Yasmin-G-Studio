@@ -8,14 +8,14 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="on-dark bg-espresso text-creme">
+    <footer className="bg-noite text-luz">
       <Container className="py-20 md:py-24">
         <div className="grid gap-14 lg:grid-cols-[1.15fr_1fr] lg:gap-20">
           <div data-reveal="up">
-            <h2 className="text-display text-creme max-w-[12ch]">
-              Agende seu horário.
+            <h2 className="text-display text-luz max-w-[12ch]">
+              Agende seu horário
             </h2>
-            <p className="text-creme-suave mt-6 max-w-[42ch] text-[0.95rem] leading-relaxed">
+            <p className="text-luz-suave mt-6 max-w-[42ch] text-[0.95rem] leading-relaxed">
               O atendimento é individual e com hora marcada. Me chame no WhatsApp
               e a gente encontra o melhor horário para você.
             </p>
@@ -32,7 +32,7 @@ export function Footer() {
 
           <div className="grid gap-10 sm:grid-cols-3" data-reveal="up">
             <FooterColumn title="Studio">
-              <address className="text-creme-suave space-y-1 text-[0.9rem] not-italic">
+              <address className="text-luz-suave space-y-1 text-[0.9rem] not-italic">
                 <p>{site.address.street}</p>
                 <p>
                   {site.address.district}
@@ -51,16 +51,16 @@ export function Footer() {
             </FooterColumn>
 
             <FooterColumn title="Horários">
-              <ul className="text-creme-suave space-y-1.5 text-[0.9rem]">
+              <ul className="text-luz-suave space-y-1.5 text-[0.9rem]">
                 {site.hours.map((slot) => (
                   <li key={slot.label}>
-                    <span className="text-creme">{slot.label}</span>
+                    <span className="text-luz">{slot.label}</span>
                     <br />
                     {slot.value}
                   </li>
                 ))}
               </ul>
-              <p className="text-creme-suave mt-3 text-[0.82rem]">
+              <p className="text-luz-suave mt-3 text-[0.82rem]">
                 {site.address.note}
               </p>
             </FooterColumn>
@@ -71,7 +71,7 @@ export function Footer() {
                   <li key={item.href}>
                     <a
                       href={item.href}
-                      className="text-creme-suave hover:text-creme transition-colors"
+                      className="text-luz-suave hover:text-luz transition-colors"
                     >
                       {item.label}
                     </a>
@@ -82,7 +82,7 @@ export function Footer() {
                     href={site.contact.instagramUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-creme-suave hover:text-creme transition-colors"
+                    className="text-luz-suave hover:text-luz transition-colors"
                   >
                     Instagram
                   </a>
@@ -92,9 +92,9 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="border-creme/12 mt-16 flex flex-col gap-8 border-t pt-10 md:flex-row md:items-end md:justify-between">
+        <div className="border-luz/12 mt-16 flex flex-col gap-8 border-t pt-10 md:flex-row md:items-end md:justify-between">
           <Logo orientation="stacked" asLink={false} className="items-start text-left" />
-          <div className="text-creme-suave max-w-[52ch] space-y-2 text-[0.78rem] leading-relaxed">
+          <div className="text-luz-suave max-w-[52ch] space-y-2 text-[0.78rem] leading-relaxed">
             <p>
               Os atendimentos têm finalidade de bem-estar e estética corporal e não
               substituem avaliação ou tratamento médico.
@@ -118,7 +118,7 @@ function FooterColumn({
 }) {
   return (
     <div>
-      <h3 className="font-display text-creme mb-4 text-[1.15rem]">{title}</h3>
+      <h3 className="font-display text-luz mb-4 text-[1.15rem]">{title}</h3>
       {children}
     </div>
   );

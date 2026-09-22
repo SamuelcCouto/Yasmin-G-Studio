@@ -6,12 +6,12 @@ import { BookingCta } from "@/features/booking/components/booking-cta";
 
 export function About() {
   return (
-    <Section id="sobre" tone="linho" space="generous" aria-labelledby="sobre-titulo">
+    <Section id="sobre" tone="pele" space="generous" aria-labelledby="sobre-titulo">
       <Container>
         <div className="grid items-start gap-14 lg:grid-cols-[1fr_0.8fr] lg:gap-24">
           <div data-reveal="left">
             <h2 id="sobre-titulo" className="text-display text-tinta">
-              Cuidar de você vai além da estética.
+              Cuidar de você vai além da estética
             </h2>
             <div className="text-lead text-tinta-suave mt-8 max-w-[54ch] space-y-6">
               <p>
@@ -29,7 +29,10 @@ export function About() {
             </div>
           </div>
 
-          <div className="relative aspect-[3/4] w-full" data-reveal="right">
+          <div
+            className="rounded-forte relative aspect-[3/4] w-full overflow-hidden"
+            data-reveal="right"
+          >
             <Image
               src="/portfolio/yasmin-retrato.jpg"
               alt="Retrato de Yasmin Guimarães"

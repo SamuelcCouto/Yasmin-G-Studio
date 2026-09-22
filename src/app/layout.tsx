@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo, Bodoni_Moda } from "next/font/google";
+import { Fraunces, Instrument_Sans } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
@@ -9,18 +9,22 @@ import "./globals.css";
 /**
  * Fontes servidas pelo próprio domínio via next/font: sem requisição a CDN
  * externa, sem layout shift e sem custo de terceiros no Core Web Vitals.
+ *
+ * Fraunces é uma serifa macia e de baixo contraste — o oposto da didone de
+ * luxo que qualquer spa usa. Os eixos SOFT e WONK arredondam os terminais e
+ * desalinham de leve os itálicos: a letra fica com mão, não com régua.
  */
-const bodoni = Bodoni_Moda({
+const fraunces = Fraunces({
   subsets: ["latin", "latin-ext"],
   display: "swap",
-  variable: "--font-bodoni",
-  axes: ["opsz"],
+  variable: "--font-fraunces",
+  axes: ["SOFT", "WONK", "opsz"],
 });
 
-const archivo = Archivo({
+const instrument = Instrument_Sans({
   subsets: ["latin", "latin-ext"],
   display: "swap",
-  variable: "--font-archivo",
+  variable: "--font-instrument",
 });
 
 export const metadata: Metadata = {
@@ -56,8 +60,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f2ebe0",
-  colorScheme: "light",
+  themeColor: "#241811",
+  colorScheme: "dark light",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -67,7 +71,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     // servidor de propósito.
     <html
       lang="pt-BR"
-      className={`${bodoni.variable} ${archivo.variable}`}
+      className={`${fraunces.variable} ${instrument.variable}`}
       suppressHydrationWarning
     >
       <body className="antialiased">

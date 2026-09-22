@@ -2,7 +2,12 @@ import type { ReactNode } from "react";
 
 import { cn } from "@/lib/utils/cn";
 
-type Tone = "linho" | "papel" | "espresso" | "pedra";
+/**
+ * `noite` é o padrão da página — a sala com a luz baixa. As faixas claras
+ * existem onde se lê detalhe (contato, endereço, política) e carregam
+ * `on-light`, que corrige a cor do anel de foco.
+ */
+type Tone = "noite" | "pele" | "pele-alta" | "barro";
 
 type SectionProps = {
   id?: string;
@@ -15,23 +20,23 @@ type SectionProps = {
 };
 
 const tones: Record<Tone, string> = {
-  linho: "bg-linho text-tinta",
-  papel: "bg-papel text-tinta",
-  pedra: "bg-pedra text-tinta",
-  espresso: "on-dark bg-espresso text-creme",
+  noite: "bg-noite text-luz",
+  pele: "on-light bg-pele text-tinta",
+  "pele-alta": "on-light bg-pele-alta text-tinta",
+  barro: "on-light bg-barro text-tinta",
 };
 
 const spaces = {
   none: "",
-  compact: "py-14 md:py-20",
-  default: "py-20 md:py-28",
-  generous: "py-24 md:py-40",
+  compact: "py-16 md:py-24",
+  default: "py-24 md:py-32",
+  generous: "py-28 md:py-44",
 } as const;
 
 export function Section({
   id,
   children,
-  tone = "linho",
+  tone = "noite",
   className,
   space = "default",
   ...rest

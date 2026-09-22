@@ -28,8 +28,8 @@ export default async function OpenGraphImage() {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          backgroundColor: "#1c1610",
-          color: "#efe7db",
+          backgroundColor: "#241811",
+          color: "#f3e7dd",
           fontFamily: "sans-serif",
           padding: 72,
         }}
@@ -42,7 +42,7 @@ export default async function OpenGraphImage() {
             marginTop: 48,
             fontSize: 34,
             letterSpacing: 1,
-            color: "#c89f63",
+            color: "#c79a52",
           }}
         >
           Massoterapia e estética corporal
@@ -52,7 +52,7 @@ export default async function OpenGraphImage() {
             display: "flex",
             marginTop: 14,
             fontSize: 26,
-            color: "#ab9f8f",
+            color: "#b7a093",
           }}
         >
           {`${site.address.district}, ${site.address.city}`}

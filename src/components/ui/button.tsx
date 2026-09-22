@@ -6,23 +6,27 @@ import { cn } from "@/lib/utils/cn";
 export type ButtonVariant = "solid" | "ouro" | "contorno" | "texto";
 export type ButtonSize = "sm" | "md";
 
+/**
+ * O raio não é o mesmo em tudo: a ação principal é uma pílula, porque é o
+ * elemento mais tocado e a forma macia convida; o contorno é quadrado macio;
+ * o texto não tem caixa nenhuma.
+ */
 const base =
   "inline-flex items-center justify-center gap-2.5 font-sans font-medium " +
   "transition-[background-color,color,border-color,opacity] duration-200 " +
   "disabled:pointer-events-none disabled:opacity-50";
 
 const variants: Record<ButtonVariant, string> = {
-  solid: "bg-espresso text-creme hover:bg-espresso-claro rounded-[2px]",
-  ouro: "bg-ouro text-papel hover:bg-ouro-escuro rounded-[2px]",
-  contorno:
-    "border border-current/35 text-current hover:border-current/70 rounded-[2px]",
+  solid: "bg-ouro text-noite hover:bg-ouro-claro rounded-full",
+  ouro: "bg-ouro text-noite hover:bg-ouro-claro rounded-full",
+  contorno: "border border-current/30 text-current hover:border-current/65 rounded-suave",
   texto:
-    "px-0 underline decoration-current/35 underline-offset-[6px] hover:decoration-current",
+    "px-0 underline decoration-current/35 underline-offset-[7px] hover:decoration-current",
 };
 
 const sizes: Record<ButtonSize, string> = {
-  sm: "h-10 px-5 text-[0.82rem] tracking-[0.06em]",
-  md: "h-12 px-7 text-[0.9rem] tracking-[0.05em]",
+  sm: "h-10 px-5 text-[0.82rem]",
+  md: "h-12 px-7 text-[0.92rem]",
 };
 
 export function buttonStyles({
@@ -70,7 +74,6 @@ type ButtonLinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
   children: ReactNode;
 };
 
-/** Usa `next/link` para rotas internas e `<a>` para links externos. */
 export function ButtonLink({
   href,
   variant,

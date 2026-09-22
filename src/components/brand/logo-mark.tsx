@@ -7,7 +7,7 @@ const MARK_RATIO = "764 / 522";
  * Símbolo da marca (lótus com chama).
  *
  * Renderizado como máscara CSS sobre `currentColor`: assim o mesmo arquivo
- * serve dourado sobre o linho, creme sobre o espresso e preto no favicon,
+ * serve dourado sobre o pele, luz sobre o noite e preto no favicon,
  * sem duplicar assets. Para trocar o símbolo, substitua `/public/brand/mark.png`
  * (ou aponte para um `.svg`) e ajuste `MARK_RATIO`.
  *

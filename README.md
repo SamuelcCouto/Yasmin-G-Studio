@@ -11,7 +11,7 @@ Fase atual: institucional e visual. Fase seguinte: agendamento próprio via API.
 | UI           | React 19 + TypeScript strict             | Server Components por padrão, `"use client"` só nas folhas          |
 | Estilo       | Tailwind CSS v4 (config em CSS)          | Tokens da marca em `@theme`, sem `tailwind.config.js`               |
 | Movimento    | CSS + IntersectionObserver               | Entrada do hero e scroll reveal sem runtime de animação no bundle    |
-| Fontes       | `next/font` (Bodoni Moda + Archivo)      | Self-hosted, sem CDN externa e sem layout shift                     |
+| Fontes       | `next/font` (Fraunces + Instrument Sans) | Self-hosted, sem CDN externa e sem layout shift                     |
 | Imagens      | `next/image`                             | AVIF/WebP e resize pela Image Optimization da Vercel                |
 | Validação    | Zod                                      | Mesmo schema no formulário e na futura rota de API                  |
 | Métricas     | `@vercel/analytics` + `speed-insights`   | Vitals reais em produção, sem cookie e sem consentimento            |
@@ -143,4 +143,4 @@ originais em resolução maior — o hero pede algo perto de 1400 × 1900.
   sáb 9h–14h.
 - Valores de taping e dos recursos complementares estão como "sob consulta".
 - Duração de cada sessão só está preenchida no Relax 30.
-- Coordenadas de geolocalização no JSON-LD são aproximadas.
+- O JSON-LD não tem coordenadas: só voltam se vierem da ficha do Google.
