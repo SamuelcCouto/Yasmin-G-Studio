@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 import { ButtonLink } from "@/components/ui/button";
+import { FraseLeve } from "@/components/brand/frase-leve";
 import { LinhasDeToque, PoeiraDeOuro } from "@/components/brand/ornamentos";
 import { Container } from "@/components/ui/container";
 import { site } from "@/config/site";
@@ -25,12 +26,21 @@ export function Hero() {
   return (
     <section data-tone="noite" className="bg-noite text-luz relative isolate overflow-clip">
       <PoeiraDeOuro />
-      <LinhasDeToque className="top-[34%]" intensidade={0.9} />
+      <LinhasDeToque className="top-[34%]" intensidade={0.7} />
       <Container className="relative">
         <div className="grid items-center gap-12 pt-28 pb-20 lg:grid-cols-[1fr_0.82fr] lg:gap-16 lg:pt-44 lg:pb-32">
           <div>
-            <h1 className="entrada-titulo text-display-xl text-luz max-w-[11ch]">
-              você sai daqui mais leve
+            {/* A frase que promete leveza é a coisa mais leve da página:
+                a segunda linha é maior, mais fina e flutua. */}
+            <h1 className="entrada-titulo text-luz">
+              <span className="sr-only">você sai daqui mais leve</span>
+              <span
+                aria-hidden="true"
+                className="block text-[clamp(2.25rem,1.1rem+4vw,4.5rem)] leading-[1.02] tracking-[-0.025em]"
+              >
+                você sai daqui
+              </span>
+              <FraseLeve className="mt-1 text-[clamp(3.5rem,1.3rem+7.8vw,8rem)] leading-[0.92] font-extralight tracking-[-0.04em] [font-variation-settings:'SOFT'_100,'WONK'_1]" />
             </h1>
 
             <p

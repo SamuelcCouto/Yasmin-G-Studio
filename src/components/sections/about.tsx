@@ -8,7 +8,7 @@ import { BookingCta } from "@/features/booking/components/booking-cta";
 export function About() {
   return (
     <Section id="sobre" tone="pele" space="generous" aria-labelledby="sobre-titulo">
-      <LinhasDeToque className="-bottom-28" tom="ouro-escuro" intensidade={0.75} />
+      <LinhasDeToque className="-bottom-28" tom="ouro-escuro" brilho="ouro" intensidade={0.9} />
       <Container>
         <div className="grid items-start gap-14 lg:grid-cols-[1fr_0.8fr] lg:gap-24">
           <div data-reveal="left">

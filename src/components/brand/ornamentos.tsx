@@ -10,60 +10,84 @@ import { cn } from "@/lib/utils/cn";
  * Cada um sai da prática do studio, não de um banco de efeitos:
  * - LinhasDeToque: o deslizar das mãos e a linfa correndo na drenagem;
  * - LotoRespira: o símbolo dela, no ritmo de uma respiração lenta;
- * - PoeiraDeOuro: poeira na luz baixa da sala, só no topo da página.
+ * - PoeiraDeOuro: poeira na luz baixa da sala.
  *
  * Para usar, a seção precisa ser `.faixa` (ou ter `isolate`): o ornamento
  * usa `z-index: -1` e fica entre o fundo e o texto.
  */
 
-type Tom = "ouro" | "ouro-escuro";
+type Tom = "ouro" | "ouro-claro" | "ouro-escuro" | "pele";
 
 const tons: Record<Tom, string> = {
   ouro: "text-ouro",
+  "ouro-claro": "text-ouro-claro",
   "ouro-escuro": "text-ouro-escuro",
+  pele: "text-pele",
 };
 
 /* --------------------------------------------------------------------------
    Linhas de toque
    -------------------------------------------------------------------------- */
 
-/** Cinco curvas quase paralelas, abrindo e fechando como um feixe. */
+/** Sete curvas quase paralelas, abrindo e fechando como um feixe. */
 function traco(i: number) {
-  const k = i - 2;
+  const k = i - 3;
   return (
-    `M-80 ${250 + k * 22} ` +
-    `C 250 ${80 + k * 38}, 560 ${480 + k * 16}, 880 ${330 + k * 26} ` +
-    `S 1280 ${140 + k * 36}, 1540 ${270 + k * 20}`
+    `M-80 ${250 + k * 20} ` +
+    `C 250 ${70 + k * 34}, 560 ${500 + k * 14}, 880 ${330 + k * 24} ` +
+    `S 1280 ${130 + k * 32}, 1540 ${270 + k * 18}`
   );
 }
 
-const TRACOS = [0, 1, 2, 3, 4].map(traco);
-/** O centro do feixe é o mais presente; as bordas quase somem. */
-const OPACIDADE_BASE = [0.1, 0.17, 0.26, 0.17, 0.1];
+const TRACOS = [0, 1, 2, 3, 4, 5, 6].map(traco);
+
+/**
+ * O centro do feixe é o mais presente e o mais grosso; as bordas afinam e
+ * quase somem. Espessuras diferentes dão a leitura de pincel, não de régua.
+ */
+const LINHAS = [
+  { opacidade: 0.16, espessura: 0.8 },
+  { opacidade: 0.26, espessura: 1 },
+  { opacidade: 0.38, espessura: 1.25 },
+  { opacidade: 0.55, espessura: 1.6 },
+  { opacidade: 0.38, espessura: 1.25 },
+  { opacidade: 0.26, espessura: 1 },
+  { opacidade: 0.16, espessura: 0.8 },
+];
+
 /** Cada gota numa velocidade: o feixe nunca pulsa em uníssono. */
 const GOTAS = [
-  { dur: "22s", atraso: "-3s" },
-  { dur: "17s", atraso: "-11s" },
-  { dur: "13s", atraso: "-6s" },
-  { dur: "19s", atraso: "-15s" },
-  { dur: "25s", atraso: "-9s" },
+  { dur: "24s", atraso: "-4s" },
+  { dur: "18s", atraso: "-12s" },
+  { dur: "14s", atraso: "-7s" },
+  { dur: "11s", atraso: "-2s" },
+  { dur: "16s", atraso: "-9s" },
+  { dur: "21s", atraso: "-15s" },
+  { dur: "27s", atraso: "-6s" },
 ];
 
 export function LinhasDeToque({
   className,
   tom = "ouro",
+  brilho = "ouro-claro",
   intensidade = 1,
 }: {
   className?: string;
+  /** Cor do traço. */
   tom?: Tom;
-  /** Multiplica a opacidade do feixe inteiro. Faixas claras pedem menos. */
+  /**
+   * Cor da gota que corre pelo traço. Numa faixa clara, uma gota clara sobre
+   * traço escuro lê como luz; na argila, como risco em barro molhado.
+   */
+  brilho?: Tom;
+  /** Multiplica a opacidade do feixe inteiro. */
   intensidade?: number;
 }) {
   return (
     <div
       aria-hidden="true"
       data-ambiente
-      className={cn("ornamento paralaxe inset-x-0", tons[tom], className)}
+      className={cn("ornamento paralaxe inset-x-0", className)}
       style={{ opacity: intensidade, "--paralaxe": "40px" } as CSSProperties}
     >
       <svg
@@ -72,28 +96,49 @@ export function LinhasDeToque({
         focusable="false"
         className="relative left-1/2 h-auto w-[max(100%,68rem)] max-w-none -translate-x-1/2"
       >
-        {TRACOS.map((d, i) => (
-          <path
-            key={`base-${i}`}
-            d={d}
-            stroke="currentColor"
-            strokeWidth={1}
-            strokeOpacity={OPACIDADE_BASE[i]}
-          />
-        ))}
-        {TRACOS.map((d, i) => (
-          <path
-            key={`gota-${i}`}
-            d={d}
-            pathLength={1000}
-            stroke="currentColor"
-            strokeWidth={1.6}
-            strokeLinecap="round"
-            strokeOpacity={0.85}
-            className="linha-gota"
-            style={{ "--dur": GOTAS[i]?.dur, "--atraso": GOTAS[i]?.atraso } as CSSProperties}
-          />
-        ))}
+        <g className={tons[tom]}>
+          {TRACOS.map((d, i) => (
+            <path
+              key={`traco-${i}`}
+              d={d}
+              pathLength={1000}
+              stroke="currentColor"
+              strokeWidth={LINHAS[i]?.espessura}
+              strokeOpacity={LINHAS[i]?.opacidade}
+              strokeLinecap="round"
+              className="linha-traco"
+            />
+          ))}
+        </g>
+
+        <g className={tons[brilho]}>
+          {TRACOS.map((d, i) => (
+            <g
+              key={`gota-${i}`}
+              className="linha-gota"
+              style={{ "--dur": GOTAS[i]?.dur, "--atraso": GOTAS[i]?.atraso } as CSSProperties}
+            >
+              {/* Halo: a mesma gota, larga e translúcida, sem precisar de
+                  filtro SVG (que exigiria um id único por instância). */}
+              <path
+                d={d}
+                pathLength={1000}
+                stroke="currentColor"
+                strokeWidth={7}
+                strokeOpacity={0.14}
+                strokeLinecap="round"
+              />
+              <path
+                d={d}
+                pathLength={1000}
+                stroke="currentColor"
+                strokeWidth={2}
+                strokeOpacity={0.95}
+                strokeLinecap="round"
+              />
+            </g>
+          ))}
+        </g>
       </svg>
     </div>
   );

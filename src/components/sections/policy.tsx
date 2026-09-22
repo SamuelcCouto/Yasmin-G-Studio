@@ -8,7 +8,8 @@ export async function Policy() {
 
   return (
     <Section id="politica" tone="barro" space="default" aria-labelledby="politica-titulo">
-      <LinhasDeToque className="-top-20" tom="ouro-escuro" intensidade={0.8} />
+      {/* Na argila, traço escuro com gota clara correndo: risco em barro molhado. */}
+      <LinhasDeToque className="-top-16" tom="ouro-escuro" brilho="pele" />
       <Container>
         <h2 id="politica-titulo" className="text-display max-w-[18ch]" data-reveal="up">
           Política de atendimento

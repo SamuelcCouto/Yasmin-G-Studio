@@ -9,7 +9,7 @@ export async function Packages() {
 
   return (
     <Section id="pacotes" tone="noite" space="default" aria-labelledby="pacotes-titulo">
-      <LinhasDeToque className="-bottom-24" intensidade={0.85} />
+      <LinhasDeToque className="-bottom-24" intensidade={0.8} />
       <Container>
         <h2
           id="pacotes-titulo"

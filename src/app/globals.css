@@ -155,7 +155,9 @@
   }
   to {
     opacity: 1;
-    clip-path: inset(0 0 0 0);
+    /* Termina além da caixa: as letras flutuam e fogem do cursor, e um
+       recorte colado na borda cortaria o movimento. */
+    clip-path: inset(-25% -12% -25% -12%);
     transform: none;
   }
 }
@@ -318,7 +320,7 @@
 
   /* Gota de luz correndo pela linha: a linfa, o deslizar das mãos. */
   .linha-gota {
-    stroke-dasharray: 46 954;
+    stroke-dasharray: 70 930;
     animation: gota var(--dur, 18s) linear infinite;
     animation-delay: var(--atraso, 0s);
   }
@@ -336,14 +338,44 @@
     animation-delay: var(--atraso, 0s);
   }
 
+  /* Letras de "mais leve" no hero. `translate` é o empurrão do cursor
+     (FraseLeve); `transform` é a flutuação. Propriedades separadas, então
+     as duas coisas acontecem juntas sem uma apagar a outra. */
+  .letra-leve {
+    display: inline-block;
+    translate: var(--px, 0) var(--py, 0);
+    transition: translate 0.9s var(--ease-calmo);
+    animation: flutuar var(--dur, 6s) ease-in-out infinite;
+    animation-delay: var(--atraso, 0s);
+  }
+
   /* Fora da tela não há por que gastar quadro: o ScrollReveal liga e
      desliga `is-playing` em cada `[data-ambiente]`. Sem JS, roda sempre. */
-  .js [data-ambiente]:not(.is-playing) :is(.linha-gota, .loto-respira, .grao-poeira) {
+  .js [data-ambiente]:not(.is-playing) :is(.linha-gota, .loto-respira, .grao-poeira, .letra-leve) {
     animation-play-state: paused;
   }
 }
 
 @keyframes gota {
+  from {
+    stroke-dashoffset: 1000;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes flutuar {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(var(--sobe, -0.06em)) rotate(var(--gira, 0.6deg));
+  }
+}
+
+@keyframes desenhar {
   from {
     stroke-dashoffset: 1000;
   }
@@ -396,6 +428,15 @@
       animation: paralaxe linear both;
       animation-timeline: view();
       animation-range: cover;
+    }
+
+    /* As linhas se desenham enquanto a seção sobe na tela. Sem suporte,
+       elas simplesmente aparecem inteiras. */
+    .linha-traco {
+      stroke-dasharray: 1000;
+      animation: desenhar linear both;
+      animation-timeline: view();
+      animation-range: entry 5% cover 45%;
     }
   }
 }
